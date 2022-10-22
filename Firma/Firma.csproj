@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Models\Entities\ModelFaktury.edmx" />
+    <None Remove="Views\24dp.png" />
+    <None Remove="Views\dwa.png" />
+    <None Remove="Views\Jeden.png" />
+    <None Remove="Views\trzy.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EntityDeploy Include="Models\Entities\ModelFaktury.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelFaktury.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Security" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\Content\Icons\Jeden.png" />
+    <Resource Include="Views\dwa.png" />
+    <Resource Include="Views\Jeden.png" />
+    <Resource Include="Views\trzy.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Models\Entities\ModelFaktury.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModelFaktury.edmx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>
