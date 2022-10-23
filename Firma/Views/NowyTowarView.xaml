@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Firma.Views.NowyTowarView"
+﻿<local:JedenViewBase x:Class="Firma.Views.NowyTowarView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -10,13 +10,29 @@
         <ResourceDictionary Source="StyleZakladekResources.xaml"/>
     </UserControl.Resources>
     <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Style="{StaticResource LabelStandardowy}">Tu będzie dodawanie towarów</Label>
-        <Label Grid.Row="1" Style="{StaticResource LabelError}">Tu będzie dodawanie towarów</Label>
-        <Button  Grid.Row="2" Content="Ok"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Kod" Margin="0,8,0,8"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Nazwa" Margin="0,8,0,8"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Stawka Vat Sprzedazy" Margin="0,8,0,8"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Stawka Vat Zakupu" Margin="0,8,0,8"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Cena" Margin="0,8,0,8"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Marza" Margin="0,8,0,8"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="0,8,0,8" Width="50" HorizontalAlignment="Left" Text="{Binding Path=Kod, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,8,0,8" Width="150" HorizontalAlignment="Left" Text="{Binding Path=Nazwa, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,8,0,8" Width="50" HorizontalAlignment="Left" Text="{Binding Path=StawkaVatSprzedazy, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="0,8,0,8" Width="50" HorizontalAlignment="Left" Text="{Binding Path=StawkaVatZakupu, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="0,8,0,8" Width="50" HorizontalAlignment="Left" Text="{Binding Path=Cena, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Margin="0,8,0,8" Width="50" HorizontalAlignment="Left" Text="{Binding Path=Marza, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
-</UserControl>
+</local:JedenViewBase>
