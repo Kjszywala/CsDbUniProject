@@ -67,8 +67,9 @@ namespace Firma.ViewModels
             {
                 new CommandViewModel("Towary",new BaseCommand(showAllTowar)), //to tworzy pierwszy przycisk o nazwie Towary, który pokaże zakładkę wszystkie towary
                 new CommandViewModel("Towar",new BaseCommand(()=>createView(new NowyTowarViewModel()))),
-                new CommandViewModel("Katura",new BaseCommand(()=>createView(new NowaFakturaViewModel()))),
+                new CommandViewModel("Fatura",new BaseCommand(()=>createView(new NowaFakturaViewModel()))),
                 new CommandViewModel("Faktury",new BaseCommand(showAllFaktury)),
+                new CommandViewModel("Raport Sprzedazy",new BaseCommand(showRaportSprzedazy))
             };
         }
         #endregion
@@ -106,6 +107,8 @@ namespace Firma.ViewModels
         #endregion
 
         #region Funkcje pomocnicze
+        //to jest funkcja, która otwiera nową zakładke Towar
+        //za każdym tworzy nową NOWĄ zakładkę do dodawania towaru
         private void createView(WorkspaceViewModel workspace)
         {
             this.Workspaces.Add(workspace);
@@ -121,16 +124,7 @@ namespace Firma.ViewModels
             }
             this.setActiveWorkspace(workspace);
         }
-        //to jest funkcja, która otwiera nową zakładke Towar
-        //za każdym tworzy nową NOWĄ zakładkę do dodawania towaru
-        //private void createTowar()
-        //{
-        //    //tworzy zakładke NowyTowar (VM)
-        //    NowyTowarViewModel workspace=new NowyTowarViewModel();
-        //    //dodajmy ją do kolkcji aktywnych zakładek
-        //    this.Workspaces.Add(workspace);
-        //    this.setActiveWorkspace(workspace);
-        //}
+      
         //to jest funkcja, która otwiera zakładke ze wszystkimi towarami
         //za każdym razem sprawdza czy zakladka z towarami jest juz otwarta, jak jest to ja aktywuje, ajk nie ma to tworzy 
         private void showAllTowar()
@@ -142,6 +136,21 @@ namespace Firma.ViewModels
             {
                 //tworzymy nowa zakladke Wszystkie towary
                 workspace=new WszystkieTowaryViewModel();
+                //i dodajemy ja do kolekcji zakladek
+                this.Workspaces.Add(workspace);
+            }
+            //aktywujemy zakladke
+            this.setActiveWorkspace(workspace);
+        }
+        private void showRaportSprzedazy()
+        {
+            //sz....
+            RaportSprzedazyViewModel workspace = this.Workspaces.FirstOrDefault(vm => vm is RaportSprzedazyViewModel) as RaportSprzedazyViewModel;
+            //jezeli ....
+            if (workspace == null)
+            {
+                //tworzymy nowa zakladke Wszystkie towary
+                workspace = new RaportSprzedazyViewModel();
                 //i dodajemy ja do kolekcji zakladek
                 this.Workspaces.Add(workspace);
             }

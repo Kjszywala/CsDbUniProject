@@ -13,6 +13,9 @@
     <Compile Update="Views\NowyTowarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\RaportSprzedazyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\WszystkieFakturyView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -34,6 +37,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\NowyTowarView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RaportSprzedazyView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\StyleZakladekResources.xaml">

@@ -9,6 +9,7 @@
     <Grid Background="White">
         <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}" Margin="5">
             <DataGrid.Columns>
+                
                 <DataGridTextColumn Header="Id" Binding="{Binding Path=IdTowaru}"/>
                 <DataGridTextColumn Header="Kod" Binding="{Binding Path=Kod}"/>
                 <DataGridTextColumn Header="Nazwa" Binding="{Binding Path=Nazwa}"/>
