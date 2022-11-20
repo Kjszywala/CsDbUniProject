@@ -1,5 +1,6 @@
 ﻿using Firma.Helpers;
 using Firma.Models.Entities;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -37,6 +38,21 @@ namespace Firma.ViewModels.Abstract
                 return _loadCommand;
             }
         }
+
+        // komenda do dodawania.
+        private BaseCommand _AddCommand;
+        public ICommand AddCommand
+        {
+            get
+            {
+                if (_AddCommand == null)
+                {
+                    // pusta wywoluje load.
+                    _AddCommand = new BaseCommand(() => Add());
+                }
+                return _AddCommand;
+            }
+        }
         // w tym obiekcie beda wszystkie towary.
         private ObservableCollection<T> _List;
         public ObservableCollection<T> List
@@ -68,6 +84,10 @@ namespace Firma.ViewModels.Abstract
         #endregion
 
         #region Helpers
+        public void Add()
+        {
+            Messenger.Default.Send(DisplayName + " Add");
+        }
         public abstract void Load();
         #endregion
     }

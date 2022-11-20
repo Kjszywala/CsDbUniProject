@@ -1,4 +1,5 @@
 ﻿using Firma.Helpers;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -63,12 +64,13 @@ namespace Firma.ViewModels
         }
         private List<CommandViewModel> CreateCommands()//tu decydujemy jakie przyciski są w lewym menu
         {
+            Messenger.Default.Register<string>(this, Open); //item => Open(item)
             return new List<CommandViewModel>
             {
                 new CommandViewModel("Towary",new BaseCommand(showAllTowar)), //to tworzy pierwszy przycisk o nazwie Towary, który pokaże zakładkę wszystkie towary
                 new CommandViewModel("Towar",new BaseCommand(()=>createView(new NowyTowarViewModel()))),
-                new CommandViewModel("Fatura",new BaseCommand(()=>createView(new NowaFakturaViewModel()))),
                 new CommandViewModel("Faktury",new BaseCommand(showAllFaktury)),
+                new CommandViewModel("Fatura",new BaseCommand(()=>createView(new NowaFakturaViewModel()))),
                 new CommandViewModel("Raport Sprzedazy",new BaseCommand(showRaportSprzedazy))
             };
         }
@@ -107,6 +109,25 @@ namespace Firma.ViewModels
         #endregion
 
         #region Funkcje pomocnicze
+        /// <summary>
+        /// Ta metoda jest wywolywana przez messenger po otrzymaniu wiadomosci
+        /// </summary>
+        /// <param name="name">wiadomosc</param>
+        private void Open(string name)
+        {
+            if(name == "Towary Add")
+            {
+                createView(new NowyTowarViewModel());
+            }
+            else if(name == "Faktury Add")
+            {
+                createView(new NowaFakturaViewModel());
+            }
+            else if(name == "Kontrahenci Show")
+            {
+                showAllKontrahenci();
+            }
+        }
         //to jest funkcja, która otwiera nową zakładke Towar
         //za każdym tworzy nową NOWĄ zakładkę do dodawania towaru
         private void createView(WorkspaceViewModel workspace)
@@ -124,7 +145,18 @@ namespace Firma.ViewModels
             }
             this.setActiveWorkspace(workspace);
         }
-      
+
+        private void showAllKontrahenci()
+        {
+            WszyscyKontrahenciViewModel workspace = this.Workspaces.FirstOrDefault(vm => vm is WszyscyKontrahenciViewModel) as WszyscyKontrahenciViewModel;
+            if (workspace == null)
+            {
+                workspace = new WszyscyKontrahenciViewModel();
+                this.Workspaces.Add(workspace);
+            }
+            this.setActiveWorkspace(workspace);
+        }
+
         //to jest funkcja, która otwiera zakładke ze wszystkimi towarami
         //za każdym razem sprawdza czy zakladka z towarami jest juz otwarta, jak jest to ja aktywuje, ajk nie ma to tworzy 
         private void showAllTowar()

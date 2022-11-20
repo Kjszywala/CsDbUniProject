@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Firma.Views
 {
     /// <summary>
-    /// Interaction logic for NowaFakturaView.xaml
+    /// Interaction logic for WszyscyKontrahenciView.xaml
     /// </summary>
-    public partial class NowaFakturaView : JedenViewBase
+    public partial class WszyscyKontrahenciView : WszystkieViewBase
     {
-        public NowaFakturaView()
+        public WszyscyKontrahenciView()
         {
             InitializeComponent();
         }
