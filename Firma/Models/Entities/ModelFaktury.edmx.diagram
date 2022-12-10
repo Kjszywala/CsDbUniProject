@@ -8,12 +8,12 @@
         <EntityTypeShape EntityType="Faktury2022Model.Adres" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Faktury2022Model.Faktura" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="Faktury2022Model.Kontrahent" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Faktury2022Model.PozycjaFaktury" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Faktury2022Model.PozycjaFaktury" Width="1.5" PointX="7.125" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Faktury2022Model.Rodzaj" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Faktury2022Model.SposobPlatnosci" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Faktury2022Model.Status" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Faktury2022Model.sysdiagrams" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Faktury2022Model.Towar" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Faktury2022Model.SposobPlatnosci" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Faktury2022Model.Status" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Faktury2022Model.sysdiagrams" Width="1.5" PointX="5.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Faktury2022Model.Towar" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
         <AssociationConnector Association="Faktury2022Model.FK_Kontrahent_Adres" ManuallyRouted="false" />
         <AssociationConnector Association="Faktury2022Model.FK_Faktura_Kontrahent" ManuallyRouted="false" />
         <AssociationConnector Association="Faktury2022Model.FK_Faktura_SposobPlatnosci" ManuallyRouted="false" />

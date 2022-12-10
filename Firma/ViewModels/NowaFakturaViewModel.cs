@@ -6,6 +6,7 @@ using Firma.Views;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ using System.Windows.Input;
 
 namespace Firma.ViewModels
 {
-    public class NowaFakturaViewModel:JedenViewModel<Faktura> //bo wszystkie zakładki dziedzicza po workspaceVM
+    public class NowaFakturaViewModel : JedenWszystkieViewModel<Faktura, PozycjaFakturyForAllView> //bo wszystkie zakładki dziedzicza po workspaceVM
     {
         #region PolaIWlasciwosci
         public List<SposobPlatnosci> sposobPlatnosci { get; set; }
@@ -39,9 +40,11 @@ namespace Firma.ViewModels
 
         #region Konstruktor
         public NowaFakturaViewModel()
-            :base("Faktura")
+            :base("Faktura", "Pozycje Faktury")
         {
             Item = new Faktura();
+            List = new ObservableCollection<PozycjaFakturyForAllView>();
+
             sposobPlatnosci = Db.SposobPlatnosci.Where(item=> item.CzyAktywny == true).ToList();
             Kontrahenci = Db.Kontrahent.Where(item => item.CzyAktywny == true).Select(item => new ComboBoxKeyAndValue()
             {
@@ -49,7 +52,11 @@ namespace Firma.ViewModels
                 Value = item.Nazwa + " - " + item.NIP + " (" + item.Kod + ")"
             }).ToList();
             Messenger.Default.Register<Kontrahent>(this, GetWybranyKontrahent);
+            Messenger.Default.Register<PozycjaFaktury>(this, PrzypiszPozycjeFaktury);
+
         }
+
+       
         #endregion
 
         #region Properties
@@ -178,6 +185,7 @@ namespace Firma.ViewModels
                 return _WybierzKontrahentaCommand;
             }
         }
+
         #endregion
 
         #region Helpers
@@ -185,6 +193,23 @@ namespace Firma.ViewModels
         {
             DaneKontrahenta = $"{kontrahent.Nazwa} {kontrahent.NIP} {kontrahent.Kod}";
             IdKontrahenta = kontrahent.IdKontrahenta;
+        }
+        private void PrzypiszPozycjeFaktury(PozycjaFaktury pozycjaFaktury)
+        {
+            
+            Item.PozycjaFaktury.Add(pozycjaFaktury);
+            Towar towar = Db.Towar.First(item => item.IdTowaru == pozycjaFaktury.IdTowaru);
+            List.Add(new PozycjaFakturyForAllView(
+                towar.Kod,
+                towar.Nazwa,
+                pozycjaFaktury.Cena,
+                pozycjaFaktury.Ilosc,
+                pozycjaFaktury.Rabat)
+                );
+            //FakturyEntities db1 = new FakturyEntities(), db2 = new FakturyEntities();
+            //Faktura faktura = db1.Faktura.First();
+            //faktura.Kontrahent = db2.Kontrahent.First();
+            //db1.SaveChanges();
         }
         private void WybierzKontrahenta()
         {
@@ -195,9 +220,14 @@ namespace Firma.ViewModels
             window.Show();
             //Messenger.Default.Send("Kontrahenci Show");
         }
+        protected override void ShowAddView()
+        {
+            //Messenger.Default.Send(DisplayNameList + " Add");
+            Messenger.Default.Send(new MessengerMessage<NowaFakturaViewModel, PozycjaFaktury>() { Sender=this });
+        }
         public override void Save()
         {
-            Item.CzyAktywna = true;
+            //Item.CzyAktywna = true;
             //najpierw dodajemy towar do lokalnej kolekcji.
             Db.Faktura.AddObject(Item);
             //nastepnie zapisujemy zmiany w bazie danych.

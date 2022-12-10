@@ -1,4 +1,4 @@
-﻿<local:JedenViewBase
+﻿<local:JedenWszystkieViewBase
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -42,5 +42,6 @@
         <Label  Grid.Column="0"  Grid.Row="4"  Content="Sposob  Platnosci" Margin="0,8,0,8"/>
         <ComboBox  Grid.Column="1"  Grid.Row="4"  Margin="0,8,0,8"  Width="120" HorizontalAlignment="Left" ItemsSource="{Binding sposobPlatnosci}" DisplayMemberPath="Nazwa" SelectedValue="{Binding IdSposobuPlatnosci}" SelectedValuePath="IdSposobuPlatnosci"/>
 
+        <DataGrid Grid.Row="6" Grid.ColumnSpan="3" ItemsSource="{Binding List}"></DataGrid>
     </Grid>
-</local:JedenViewBase>
+</local:JedenWszystkieViewBase>

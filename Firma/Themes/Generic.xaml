@@ -20,8 +20,15 @@
                             <ToggleButton Content="Kasuj" Margin="0,2,0,2"/>
                             <ToggleButton Content="Odswierz" Margin="0,2,0,2"/>
                         </ToolBar>
-                        <StackPanel Grid.Row="1" Background="Azure">
-                            <Label>Tu bedzie filtrowanie i sortowanie</Label>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Background="White">
+                            <Label Width="120" Content="Sortowanie"/>
+                            <ComboBox Width="120" ItemsSource="{Binding SortComboBoxItems}" SelectedValue="{Binding SortField}"/>
+                            <CheckBox Content="Sortuj malejaco" IsChecked="{Binding OrderDescending}"/>
+                            <Button Content="Sortuj" Width="120" Command="{Binding SortCommand}"/>
+                            <Label Width="120" Content="Wyszukiwanie"/>
+                            <ComboBox Width="120" ItemsSource="{Binding SearchComboBoxItems}" SelectedValue="{Binding SearchField}"/>
+                            <TextBox Width="120" Text="{Binding SearchText}"/>
+                            <Button Width="120" Content="Szukaj" Command="{Binding SearchCommand}"/>
                         </StackPanel>
                         <ContentPresenter Grid.Row="2" Margin="0,5,0,5">
                             
@@ -39,13 +46,15 @@
                     <Grid Margin="0,10,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="34"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <ToolBar Grid.Row="0" Height="30" Margin="0,2,0,2">
                             <ToggleButton Content="Zapisz i zamknij" Width="100" Height="30" Command="{Binding SaveAndCloseCommand}"/>
                             <ToggleButton Content="Anuluj" Width="100" Height="30"/>
                         </ToolBar>
-                        <ContentPresenter Grid.Row="1" Margin="0,5,0,5">
+                        
+                        <ContentPresenter Grid.Row="2" Margin="0,5,0,5">
                             
                         </ContentPresenter>
                     </Grid>
@@ -53,4 +62,28 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="{x:Type local:JedenWszystkieViewBase}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:JedenWszystkieViewBase}">
+                    <Grid Margin="0,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <ToolBar Grid.Row="0" Height="30" Margin="0,2,0,2">
+                            <ToggleButton Content="Zapisz i zamknij" Width="100" Height="30" Command="{Binding SaveAndCloseCommand}"/>
+                            <ToggleButton Content="Dodaj" Width="100" Height="30" Command="{Binding ShowAddViewCommand}"/>
+                            <ToggleButton Content="Anuluj" Width="100" Height="30"/>
+                        </ToolBar>
+                        <ContentPresenter Grid.Row="1" Margin="0,5,0,5">
+
+                        </ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
 </ResourceDictionary>

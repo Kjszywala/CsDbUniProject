@@ -30,6 +30,9 @@
         <vw:WszyscyKontrahenciView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:NowaPozycjaFakturyViewModel}">
+        <vw:NowaPozycjaFakturyView/>
+    </DataTemplate>
 
     <!--tu jest koniec laczenia View z ViewModel zakładek-->
 

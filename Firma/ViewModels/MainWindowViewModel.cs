@@ -127,6 +127,10 @@ namespace Firma.ViewModels
             {
                 showAllKontrahenci();
             }
+            else if (name == "Pozycje Faktury Add")
+            {
+                createView(new NowaPozycjaFakturyViewModel());
+            }
         }
         //to jest funkcja, która otwiera nową zakładke Towar
         //za każdym tworzy nową NOWĄ zakładkę do dodawania towaru

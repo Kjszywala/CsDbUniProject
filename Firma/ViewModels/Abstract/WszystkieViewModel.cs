@@ -72,6 +72,99 @@ namespace Firma.ViewModels.Abstract
                 OnPropertyChanged(() => List);
             }
         }
+        public List<T> AllList { get; set; }
+        public List<string> SortComboBoxItems { get; set; }
+        private string _SortField;
+        public string SortField
+        {
+            get
+            {
+                return _SortField;
+            }
+            set
+            {
+                if (_SortField != value)
+                {
+                    _SortField = value;
+                    OnPropertyChanged(() => SortField);
+                }
+            }
+        }
+        private bool _SortDescending;
+        public bool SortDescending
+        {
+            get
+            {
+                return _SortDescending;
+            }
+            set
+            {
+                if (_SortDescending != value)
+                {
+                    _SortDescending = value;
+                    OnPropertyChanged(() => SortDescending);
+                }
+            }
+        }
+        private ICommand _SortCommand;
+        public ICommand SortCommand
+        {
+            get
+            {
+                if (_SortCommand == null)
+                {
+                    _SortCommand = new BaseCommand(() => Sort());
+                }
+                return _SortCommand;
+            }
+        }
+
+        public List<string> SearchComboBoxItems { get; set; }
+        private string _SearchField;
+        public string SearchField
+        {
+            get
+            {
+                return _SearchField;
+            }
+            set
+            {
+                if (_SearchField != value)
+                {
+                    _SearchField = value;
+                    OnPropertyChanged(() => SearchField);
+                }
+            }
+        }
+        private string _SearchText;
+        public string SearchText
+        {
+            get
+            {
+                return _SearchText;
+            }
+            set
+            {
+                if (_SearchText != value)
+                {
+                    _SearchText = value;
+                    OnPropertyChanged(() => SearchText);
+                }
+            }
+        }
+        private ICommand _SearchCommand;
+        public ICommand SearchCommand
+        {
+            get
+            {
+                if (_SearchCommand == null)
+                {
+                    _SearchCommand = new BaseCommand(() => Search());
+                }
+                return _SearchCommand;
+            }
+        }
+
 
         #endregion
 
@@ -80,6 +173,8 @@ namespace Firma.ViewModels.Abstract
         {
             base.DisplayName = displayName;
             this.fakturyEntities = new FakturyEntities();
+            SortComboBoxItems = GetSortComboBoxItems();
+            SearchComboBoxItems = GetSearchComboBoxItems();
         }
         #endregion
 
@@ -88,6 +183,12 @@ namespace Firma.ViewModels.Abstract
         {
             Messenger.Default.Send(DisplayName + " Add");
         }
+
+        abstract protected void Sort();
+        abstract protected void Search();
+        abstract protected List<string> GetSortComboBoxItems();
+        abstract protected List<string> GetSearchComboBoxItems();
+
         public abstract void Load();
         #endregion
     }

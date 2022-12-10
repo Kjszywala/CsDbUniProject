@@ -1,6 +1,7 @@
 ﻿using Firma.Models.Entities;
 using Firma.ViewModels.Abstract;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -35,6 +36,26 @@ namespace Firma.ViewModels
             {
                 MessageBox.Show(e.Message);
             }
+        }
+
+        protected override List<string> GetSearchComboBoxItems()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override List<string> GetSortComboBoxItems()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void Search()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void Sort()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }
