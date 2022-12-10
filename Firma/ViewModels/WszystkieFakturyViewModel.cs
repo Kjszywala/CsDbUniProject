@@ -43,7 +43,7 @@ namespace Firma.ViewModels
                         TerminPlatnosci = faktura.TerminPlatnosci,
                         SposobPlatnosciNazwa = faktura.SposobPlatnosci.Nazwa
                     }
-                ).Take(20).ToList();
+                ).ToList();//.Take(20)
                 List = new ObservableCollection<FakturaForAllView>(AllList);
             }
             catch (Exception e)
@@ -59,12 +59,20 @@ namespace Firma.ViewModels
         
         protected override void Search()
         {
-            switch (SearchField)
+            if (!string.IsNullOrEmpty(SearchText))
             {
-                case "Numer":
-                    List = new ObservableCollection<FakturaForAllView>(AllList.Where(item => item.Numer == SearchText));
-                    break;
+                switch (SearchField)
+                {
+                    case "Numer":
+                        List = new ObservableCollection<FakturaForAllView>(AllList.Where(item => item.Numer?.ToLower().Trim() == SearchText));
+                        break;
+                }
             }
+            else
+            {
+                List = new ObservableCollection<FakturaForAllView>(AllList);
+            }
+            Sort();
         }
 
         protected override void Sort()
@@ -73,8 +81,8 @@ namespace Firma.ViewModels
             {
                 case "Numer":
                     List = new ObservableCollection<FakturaForAllView>(SortDescending ? 
-                        AllList.OrderByDescending(item => item.Numer) : 
-                        AllList.OrderByDescending(item => item.Numer));
+                        List.OrderByDescending(item => item.Numer) :
+                        List.OrderBy(item => item.Numer));
                     break;
             }
         }

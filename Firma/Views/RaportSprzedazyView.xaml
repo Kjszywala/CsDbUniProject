@@ -36,9 +36,9 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Margin="3" Content="Od:"></Label>
-                    <DatePicker Grid.Column="1" Margin="3"></DatePicker>
+                    <DatePicker Grid.Column="1" Margin="3" SelectedDate="{Binding DataOd}"></DatePicker>
                     <Label Grid.Column="3" Margin="3" Content="Do:"></Label>
-                    <DatePicker Grid.Column="4" Margin="3"></DatePicker>
+                    <DatePicker Grid.Column="4" Margin="3" SelectedDate="{Binding DataDo}"></DatePicker>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -46,16 +46,16 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Margin="3" Content="Wybierz Towar:"></Label>
-                    <ComboBox Grid.Column="1" Margin="4"></ComboBox>
+                    <ComboBox Grid.Column="1" Margin="4"  ItemsSource="{Binding Towary}" DisplayMemberPath="Value" SelectedValue="{Binding WybraneTowarId}" SelectedValuePath="Key"></ComboBox>
                 </Grid>
-                <Button Grid.Row="3" Margin="6" Content="Oblicz"></Button>
+                <Button Grid.Row="3" Margin="6" Content="Oblicz" Command="{Binding ObliczCommand}"></Button>
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Margin="3" Content="Utarg wynosi:"></Label>
-                    <Label Grid.Column="1" Margin="4"></Label>
+                    <Label Grid.Column="1" Margin="4" Content="{Binding Utarg}"></Label>
                 </Grid>
             </Grid>
         </StackPanel>

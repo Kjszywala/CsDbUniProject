@@ -147,7 +147,7 @@ namespace Firma.ViewModels.Abstract
             {
                 if (_SearchText != value)
                 {
-                    _SearchText = value;
+                    _SearchText = value?.ToLower().Trim();
                     OnPropertyChanged(() => SearchText);
                 }
             }

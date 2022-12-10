@@ -23,7 +23,7 @@
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Background="White">
                             <Label Width="120" Content="Sortowanie"/>
                             <ComboBox Width="120" ItemsSource="{Binding SortComboBoxItems}" SelectedValue="{Binding SortField}"/>
-                            <CheckBox Content="Sortuj malejaco" IsChecked="{Binding OrderDescending}"/>
+                            <CheckBox Content="Sortuj malejaco" IsChecked="{Binding SortDescending}"/>
                             <Button Content="Sortuj" Width="120" Command="{Binding SortCommand}"/>
                             <Label Width="120" Content="Wyszukiwanie"/>
                             <ComboBox Width="120" ItemsSource="{Binding SearchComboBoxItems}" SelectedValue="{Binding SearchField}"/>

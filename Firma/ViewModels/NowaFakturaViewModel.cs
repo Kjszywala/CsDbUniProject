@@ -222,8 +222,8 @@ namespace Firma.ViewModels
         }
         protected override void ShowAddView()
         {
-            //Messenger.Default.Send(DisplayNameList + " Add");
-            Messenger.Default.Send(new MessengerMessage<NowaFakturaViewModel, PozycjaFaktury>() { Sender=this });
+            Messenger.Default.Send(DisplayNameList + " Add");
+            //Messenger.Default.Send(new MessengerMessage<NowaFakturaViewModel, PozycjaFaktury>() { Sender=this });
         }
         public override void Save()
         {
