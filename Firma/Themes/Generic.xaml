@@ -16,9 +16,9 @@
                         </Grid.RowDefinitions>
                         <ToolBar Grid.Row="0" Height="30" Margin="0,2,0,2">
                             <ToggleButton Content="Dodaj" Margin="0,2,0,2" Command="{Binding AddCommand}"/>
-                            <ToggleButton Content="Modyfikuj" Margin="0,2,0,2"/>
+                            <ToggleButton Content="Modyfikuj" Margin="0,2,0,2" Command="{Binding EditCommand}"/>
                             <ToggleButton Content="Kasuj" Margin="0,2,0,2" Command="{Binding DeleteCommand}"/>
-                            <ToggleButton Content="Odswierz" Margin="0,2,0,2" Command="{Binding RefreeshCommand}"/>
+                            <ToggleButton Content="Odswierz" Margin="0,2,0,2" Command="{Binding RefreshCommand}"/>
                         </ToolBar>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Background="White">
                             <Label Width="120" Content="Sortowanie"/>

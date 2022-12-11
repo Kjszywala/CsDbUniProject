@@ -101,6 +101,11 @@ namespace Firma.ViewModels
                 }
             }
         }
+
+        protected override int GetSelectedItemId()
+        {
+            return SelectedItem?.IdFaktury ?? -1;
+        }
         #endregion
     }
 }

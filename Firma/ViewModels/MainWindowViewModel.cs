@@ -1,4 +1,7 @@
 ﻿using Firma.Helpers;
+using Firma.Models.Entities;
+using Firma.Models.EntitiesForView;
+using Firma.ViewModels.Abstract;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
@@ -65,6 +68,9 @@ namespace Firma.ViewModels
         private List<CommandViewModel> CreateCommands()//tu decydujemy jakie przyciski są w lewym menu
         {
             Messenger.Default.Register<string>(this, Open); //item => Open(item)
+            Messenger.Default.Register<MessengerMessage<NowaFakturaViewModel, PozycjaFaktury, object>>(this, OpenPozycjaFaktury);
+            Messenger.Default.Register<MessengerMessage<WszystkieViewModel<object>, Type, int>>(this, Edit);
+
             return new List<CommandViewModel>
             {
                 new CommandViewModel("Towary",new BaseCommand(showAll<WszystkieTowaryViewModel>)), //to tworzy pierwszy przycisk o nazwie Towary, który pokaże zakładkę wszystkie towary
@@ -74,6 +80,18 @@ namespace Firma.ViewModels
                 new CommandViewModel("Raport Sprzedazy",new BaseCommand(showAll<RaportSprzedazyViewModel>))
             };
         }
+
+        private void OpenPozycjaFaktury(MessengerMessage<NowaFakturaViewModel, PozycjaFaktury, object> obj)
+        {
+            if(obj.Response == null)
+            {
+                NowaPozycjaFakturyViewModel nowaPozycjaFakturyViewModel = new NowaPozycjaFakturyViewModel();
+                nowaPozycjaFakturyViewModel.Message = obj;
+                createView(nowaPozycjaFakturyViewModel);
+            }
+        }
+
+
         #endregion
 
         #region Zakładki
@@ -109,6 +127,14 @@ namespace Firma.ViewModels
         #endregion
 
         #region Funkcje pomocnicze
+        private void Edit(MessengerMessage<WszystkieViewModel<object>, Type, int> message)
+        {
+            if(message.Response == typeof(FakturaForAllView))
+            {
+                createView(new NowaFakturaViewModel(message.Argument));
+            }
+        }
+
         /// <summary>
         /// Ta metoda jest wywolywana przez messenger po otrzymaniu wiadomosci
         /// </summary>

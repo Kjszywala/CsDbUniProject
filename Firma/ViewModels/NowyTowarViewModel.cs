@@ -3,6 +3,7 @@ using Firma.Models.Validators;
 using Firma.ViewModels.Abstract;
 using System;
 using System.ComponentModel;
+using System.Linq;
 
 namespace Firma.ViewModels
 {
@@ -13,6 +14,13 @@ namespace Firma.ViewModels
             :base("Towar")
         {
             Item = new Towar();
+            Db.Towar.AddObject(Item);
+        }
+
+        public NowyTowarViewModel(int id) 
+            :base("Edycja Towaru")
+        {
+            Item = Db.Towar.First(item => item.IdTowaru == id);
         }
         #endregion
 
@@ -137,7 +145,7 @@ namespace Firma.ViewModels
         {
             Item.CzyAktywny = true;
             //najpierw dodajemy towar do lokalnej kolekcji.
-            Db.Towar.AddObject(Item);
+            //Db.Towar.AddObject(Item);
             //nastepnie zapisujemy zmiany w bazie danych.
             Db.SaveChanges();
         }

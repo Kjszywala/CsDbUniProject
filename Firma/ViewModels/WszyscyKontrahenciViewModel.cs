@@ -84,6 +84,11 @@ namespace Firma.ViewModels
         {
             throw new NotImplementedException();
         }
+
+        protected override int GetSelectedItemId()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

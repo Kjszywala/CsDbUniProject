@@ -43,9 +43,14 @@ namespace Firma.ViewModels
         public NowaFakturaViewModel()
             :base("Faktura", "Pozycje Faktury")
         {
-            Item = new Faktura();
-            List = new ObservableCollection<PozycjaFakturyForAllView>();
+            Item = new Faktura()
+            {
+                CzyAktywna = true,
+                CzyZatwierdzona = false
+            };
+            Db.Faktura.AddObject(Item);
 
+            List = new ObservableCollection<PozycjaFakturyForAllView>();
             sposobPlatnosci = Db.SposobPlatnosci.Where(item=> item.CzyAktywny == true).ToList();
             Kontrahenci = Db.Kontrahent.Where(item => item.CzyAktywny == true).Select(item => new ComboBoxKeyAndValue()
             {
@@ -54,10 +59,41 @@ namespace Firma.ViewModels
             }).ToList();
             Messenger.Default.Register<Kontrahent>(this, GetWybranyKontrahent);
             Messenger.Default.Register<PozycjaFaktury>(this, PrzypiszPozycjeFaktury);
-
+            Messenger.Default.Register<MessengerMessage<NowaFakturaViewModel, PozycjaFaktury, object>>(this, PrzypiszPozycjeFaktury2);
         }
 
-       
+        public NowaFakturaViewModel(int id)
+           : base("Faktura", "Pozycje Faktury")
+        {
+            Item = Db.Faktura.First(item => item.IdFaktury == id);
+            List = new ObservableCollection<PozycjaFakturyForAllView>();
+
+            sposobPlatnosci = Db.SposobPlatnosci.Where(item => item.CzyAktywny == true).ToList();
+            Kontrahenci = Db.Kontrahent.Where(item => item.CzyAktywny == true).Select(item => new ComboBoxKeyAndValue()
+            {
+                Key = item.IdKontrahenta,
+                Value = item.Nazwa + " - " + item.NIP + " (" + item.Kod + ")"
+            }).ToList();
+            Messenger.Default.Register<Kontrahent>(this, GetWybranyKontrahent);
+            Messenger.Default.Register<PozycjaFaktury>(this, PrzypiszPozycjeFaktury);
+            Messenger.Default.Register<MessengerMessage<NowaFakturaViewModel, PozycjaFaktury, object>>(this, PrzypiszPozycjeFaktury2);
+        }
+
+        private void PrzypiszPozycjeFaktury2(MessengerMessage<NowaFakturaViewModel, PozycjaFaktury, object> obj)
+        {
+            if(obj.Sender == this && obj.Response != null)
+            {
+                Item.PozycjaFaktury.Add(obj.Response);
+                Towar towar = Db.Towar.First(item => item.IdTowaru == obj.Response.IdTowaru);
+                List.Add(new PozycjaFakturyForAllView(
+                    towar.Kod,
+                    towar.Nazwa,
+                    obj.Response.Cena,
+                    obj.Response.Ilosc,
+                    obj.Response.Rabat)
+                    );
+            }
+        }
         #endregion
 
         #region Properties
@@ -223,14 +259,19 @@ namespace Firma.ViewModels
         }
         protected override void ShowAddView()
         {
-            Messenger.Default.Send(DisplayNameList + " Add");
+            //Messenger.Default.Send(DisplayNameList + " Add");
             //Messenger.Default.Send(new MessengerMessage<NowaFakturaViewModel, PozycjaFaktury>() { Sender=this });
+            MessengerMessage<NowaFakturaViewModel, PozycjaFaktury, object> message = new MessengerMessage<NowaFakturaViewModel, PozycjaFaktury, object>()
+            {
+                Sender = this
+            };
+            Messenger.Default.Send(message);
         }
         public override void Save()
         {
             //Item.CzyAktywna = true;
             //najpierw dodajemy towar do lokalnej kolekcji.
-            Db.Faktura.AddObject(Item);
+            //Db.Faktura.AddObject(Item);
             //nastepnie zapisujemy zmiany w bazie danych.
             Db.SaveChanges();
         }

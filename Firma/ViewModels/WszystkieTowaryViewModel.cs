@@ -58,6 +58,11 @@ namespace Firma.ViewModels
             throw new NotImplementedException();
         }
 
+        protected override int GetSelectedItemId()
+        {
+            throw new NotImplementedException();
+        }
+
         protected override List<string> GetSortComboBoxItems()
         {
             throw new NotImplementedException();

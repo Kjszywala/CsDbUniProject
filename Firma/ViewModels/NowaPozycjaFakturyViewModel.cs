@@ -1,19 +1,17 @@
-﻿using Firma.Models.Entities;
+﻿using Firma.Helpers;
+using Firma.Models.Entities;
 using Firma.Models.EntitiesForView;
 using Firma.ViewModels.Abstract;
 using GalaSoft.MvvmLight.Messaging;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Firma.ViewModels
 {
     public class NowaPozycjaFakturyViewModel : JedenViewModel<PozycjaFaktury>
     {
         #region PolaIWlasciwosci
+        public MessengerMessage<NowaFakturaViewModel, PozycjaFaktury, object> Message { get; set; }
         public List<ComboBoxKeyAndValue> Towary { get; set; }
         public int? IdTowaru 
         {
@@ -98,7 +96,9 @@ namespace Firma.ViewModels
 
         public override void Save()
         {
-            Messenger.Default.Send(Item);
+            //Messenger.Default.Send(Item);
+            Message.Response = Item;
+            Messenger.Default.Send(Message);
         }
 
         #endregion

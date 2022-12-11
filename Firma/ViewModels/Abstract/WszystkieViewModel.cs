@@ -26,7 +26,7 @@ namespace Firma.ViewModels.Abstract
             } 
         }
         //to jest komenda do zaladowania towarow.
-        private BaseCommand _loadCommand;
+        private ICommand _loadCommand;
         public ICommand LoadCommand
         {
             get
@@ -61,6 +61,18 @@ namespace Firma.ViewModels.Abstract
                     _DeleteCommand = new BaseCommand(() => Delete());
                 }
                 return _DeleteCommand;
+            }
+        }
+        private ICommand _EditCommand;
+        public ICommand EditCommand
+        {
+            get
+            {
+                if (_EditCommand == null)
+                {
+                    _EditCommand = new BaseCommand(() => Edit());
+                }
+                return _EditCommand;
             }
         }
 
@@ -208,12 +220,21 @@ namespace Firma.ViewModels.Abstract
 
         #region Helpers
 
+        private void Edit()
+        {
+            MessengerMessage<WszystkieViewModel<object>, Type, int> message = new MessengerMessage<WszystkieViewModel<object>, Type, int>()
+            {
+                Response = typeof(T),
+                Argument = GetSelectedItemId()
+            };
+            Messenger.Default.Send(message);
+        }
+        protected abstract int GetSelectedItemId();
         protected abstract void Delete();
-        
-        abstract protected void Sort();
-        abstract protected void Search();
-        abstract protected List<string> GetSortComboBoxItems();
-        abstract protected List<string> GetSearchComboBoxItems();
+        protected abstract void Sort();
+        protected abstract void Search();
+        protected abstract List<string> GetSortComboBoxItems();
+        protected abstract List<string> GetSearchComboBoxItems();
 
         /// <summary>
         /// Pobiera modele z bazy danych, filtruje i sortuje. Uzywa Load() oraz Search().
