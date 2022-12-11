@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Firma.ViewModels.Abstract
@@ -50,11 +51,21 @@ namespace Firma.ViewModels.Abstract
 
         private void saveAndClose()
         {
-            //Zapisuje towar.
-            Save();
-            //zamyka zakladke.
-            base.OnRequestClose();
+            if (IsValid())
+            {
+                //Zapisuje towar.
+                Save();
+                MessageBox.Show("Udalo sie zapisac", "Sukces");
+                //zamyka zakladke.
+                base.OnRequestClose();
+            }
+            else
+            {
+                MessageBox.Show("Popraw bledy", "Blad");
+            }
         }
+
+        protected virtual bool IsValid() => true;
         #endregion
     }
 }

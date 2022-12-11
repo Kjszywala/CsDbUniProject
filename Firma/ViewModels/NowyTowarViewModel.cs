@@ -127,6 +127,12 @@ namespace Firma.ViewModels
         #endregion
 
         #region Save
+        protected override bool IsValid()
+        {
+            return this[nameof(StawkaVatSprzedazy)] == string.Empty
+                   && this[nameof(StawkaVatZakupu)] == string.Empty
+                   && this[nameof(Cena)] == string.Empty;
+        }
         public override void Save()
         {
             Item.CzyAktywny = true;

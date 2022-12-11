@@ -33,9 +33,21 @@ namespace Firma.ViewModels.Abstract
                 if (_loadCommand == null)
                 {
                     // pusta wywoluje load.
-                    _loadCommand = new BaseCommand(() => Load());
+                    _loadCommand = new BaseCommand(() => LoadItems());
                 }
                 return _loadCommand;
+            }
+        }
+        private ICommand _RefreshCommand;
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                if(_RefreshCommand == null)
+                {
+                    _RefreshCommand = new BaseCommand(() => LoadItems());
+                }
+                return _RefreshCommand;
             }
         }
 
@@ -165,6 +177,9 @@ namespace Firma.ViewModels.Abstract
             }
         }
 
+        #endregion
+
+        #region Commands
 
         #endregion
 
@@ -183,13 +198,25 @@ namespace Firma.ViewModels.Abstract
         {
             Messenger.Default.Send(DisplayName + " Add");
         }
-
         abstract protected void Sort();
         abstract protected void Search();
         abstract protected List<string> GetSortComboBoxItems();
         abstract protected List<string> GetSearchComboBoxItems();
 
+        /// <summary>
+        /// Pobiera modele z bazy danych, filtruje i sortuje. Uzywa Load() oraz Search().
+        /// </summary>
+        protected void LoadItems()
+        {
+            Load();
+            Search();
+        }
+
+        /// <summary>
+        /// Pobiera modele z bazy danych.
+        /// </summary>
         public abstract void Load();
+        
         #endregion
     }
 }
