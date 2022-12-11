@@ -30,9 +30,9 @@
         <Label Grid.Row="5" Grid.Column="0" Content="Marza" Margin="0,8,0,8"/>
         <TextBox Grid.Row="0" Grid.Column="1" Margin="0,8,0,8" Width="50" HorizontalAlignment="Left" Text="{Binding Path=Kod, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Grid.Row="1" Grid.Column="1" Margin="0,8,0,8" Width="150" HorizontalAlignment="Left" Text="{Binding Path=Nazwa, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,8,0,8" Width="50" HorizontalAlignment="Left" Text="{Binding Path=StawkaVatSprzedazy, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="0,8,0,8" Width="50" HorizontalAlignment="Left" Text="{Binding Path=StawkaVatZakupu, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Margin="0,8,0,8" Width="50" HorizontalAlignment="Left" Text="{Binding Path=Cena, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,8,0,8" Width="50" HorizontalAlignment="Left" Text="{Binding Path=StawkaVatSprzedazy, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="0,8,0,8" Width="50" HorizontalAlignment="Left" Text="{Binding Path=StawkaVatZakupu, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="0,8,0,8" Width="50" HorizontalAlignment="Left" Text="{Binding Path=Cena, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
         <TextBox Grid.Row="5" Grid.Column="1" Margin="0,8,0,8" Width="50" HorizontalAlignment="Left" Text="{Binding Path=Marza, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </local:JedenViewBase>

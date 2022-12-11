@@ -1,9 +1,12 @@
 ﻿using Firma.Models.Entities;
+using Firma.Models.Validators;
 using Firma.ViewModels.Abstract;
+using System;
+using System.ComponentModel;
 
 namespace Firma.ViewModels
 {
-    public class NowyTowarViewModel: JedenViewModel<Towar>
+    public class NowyTowarViewModel: JedenViewModel<Towar>, IDataErrorInfo
     {
         #region Konstruktor
         public NowyTowarViewModel()
@@ -131,6 +134,24 @@ namespace Firma.ViewModels
             Db.Towar.AddObject(Item);
             //nastepnie zapisujemy zmiany w bazie danych.
             Db.SaveChanges();
+        }
+        public string Error => string.Empty;
+        public string this[string columnName]
+        {
+            get
+            {
+                switch (columnName)
+                {
+                    case nameof(StawkaVatSprzedazy):
+                        return DecimalValidator.CzyPoprawnyProcent(StawkaVatSprzedazy.GetValueOrDefault());
+                    case nameof(StawkaVatZakupu):
+                        return DecimalValidator.CzyPoprawnyProcent(StawkaVatZakupu.GetValueOrDefault());
+                    case nameof(Cena):
+                        return DecimalValidator.CzyNieUjemne(Cena.GetValueOrDefault());
+                    default:
+                        return string.Empty;
+                }
+            }
         }
         #endregion
     }
