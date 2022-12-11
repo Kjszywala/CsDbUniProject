@@ -38,6 +38,21 @@ namespace Firma.ViewModels
             }
         }
 
+        protected override void Delete()
+        {
+            if (SelectedItem != null)
+            {
+                Towar towar = FakturyEntities.Towar.FirstOrDefault(item => item.IdTowaru == SelectedItem.IdTowaru);
+                if (towar != null)
+                {
+                    towar.CzyAktywny = false;
+                    FakturyEntities.SaveChanges();
+                    AllList.Remove(SelectedItem);
+                    List.Remove(SelectedItem);
+                }
+            }
+        }
+
         protected override List<string> GetSearchComboBoxItems()
         {
             throw new NotImplementedException();

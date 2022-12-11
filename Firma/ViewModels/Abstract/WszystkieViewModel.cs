@@ -16,6 +16,7 @@ namespace Firma.ViewModels.Abstract
     {
         #region Fields
         // To jest obiekt ktory bedzie sluzyl do operacji na bazie danych.
+        public T SelectedItem { get; set; }
         private readonly FakturyEntities fakturyEntities;
         public FakturyEntities FakturyEntities 
         { 
@@ -48,6 +49,18 @@ namespace Firma.ViewModels.Abstract
                     _RefreshCommand = new BaseCommand(() => LoadItems());
                 }
                 return _RefreshCommand;
+            }
+        }
+        private ICommand _DeleteCommand;
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                if (_DeleteCommand == null)
+                {
+                    _DeleteCommand = new BaseCommand(() => Delete());
+                }
+                return _DeleteCommand;
             }
         }
 
@@ -194,10 +207,9 @@ namespace Firma.ViewModels.Abstract
         #endregion
 
         #region Helpers
-        public void Add()
-        {
-            Messenger.Default.Send(DisplayName + " Add");
-        }
+
+        protected abstract void Delete();
+        
         abstract protected void Sort();
         abstract protected void Search();
         abstract protected List<string> GetSortComboBoxItems();
@@ -216,7 +228,11 @@ namespace Firma.ViewModels.Abstract
         /// Pobiera modele z bazy danych.
         /// </summary>
         public abstract void Load();
-        
+        public void Add()
+        {
+            Messenger.Default.Send(DisplayName + " Add");
+        }
+
         #endregion
     }
 }

@@ -79,6 +79,11 @@ namespace Firma.ViewModels
         {
             throw new NotImplementedException();
         }
+
+        protected override void Delete()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

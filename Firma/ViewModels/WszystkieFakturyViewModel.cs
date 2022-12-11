@@ -86,6 +86,21 @@ namespace Firma.ViewModels
                     break;
             }
         }
+
+        protected override void Delete()
+        {
+            if(SelectedItem != null)
+            {
+                Faktura faktura = FakturyEntities.Faktura.FirstOrDefault(item => item.IdFaktury == SelectedItem.IdFaktury);
+                if(faktura != null)
+                {
+                    faktura.CzyAktywna = false;
+                    FakturyEntities.SaveChanges();
+                    AllList.Remove(SelectedItem);
+                    List.Remove(SelectedItem);
+                }
+            }
+        }
         #endregion
     }
 }
